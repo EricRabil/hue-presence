@@ -1,0 +1,9 @@
+{
+    "hue": {
+        "user": null,
+        "ip": null
+    },
+    "presenti": {
+        "endpoint": "ws://127.0.0.1:8138/presence/eric"
+    }
+}
