@@ -3,10 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const remote_presence_connector_1 = require("remote-presence-connector");
-const inquirer_1 = __importDefault(require("inquirer"));
-const Configuration_1 = require("./Configuration");
 const events_1 = require("events");
+const inquirer_1 = __importDefault(require("inquirer"));
+const remote_presence_connector_1 = require("remote-presence-connector");
+const Configuration_1 = require("./Configuration");
 /**
  * Wrapper around PresenceStream for listening to gradient state changes
  */

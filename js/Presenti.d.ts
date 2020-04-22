@@ -1,6 +1,6 @@
 /// <reference types="node" />
-import { PresenceStream } from "remote-presence-connector";
 import { EventEmitter } from "events";
+import { PresenceStream } from "remote-presence-connector";
 export declare interface PresentiController {
     on(event: "background", fn: (color: {
         color: string;

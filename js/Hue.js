@@ -3,13 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const node_hue_api_1 = require("node-hue-api");
 const inquirer_1 = __importDefault(require("inquirer"));
-const Configuration_1 = require("./Configuration");
-const LightState_1 = __importDefault(require("node-hue-api/lib/model/lightstate/LightState"));
-const GroupState_1 = __importDefault(require("node-hue-api/lib/model/lightstate/GroupState"));
-const rgb_1 = require("node-hue-api/lib/rgb");
+const node_hue_api_1 = require("node-hue-api");
 const colorGamuts_1 = require("node-hue-api/lib/model/colorGamuts");
+const GroupState_1 = __importDefault(require("node-hue-api/lib/model/lightstate/GroupState"));
+const LightState_1 = __importDefault(require("node-hue-api/lib/model/lightstate/LightState"));
+const rgb_1 = require("node-hue-api/lib/rgb");
+const Configuration_1 = require("./Configuration");
 function hexToRgb(hex) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {

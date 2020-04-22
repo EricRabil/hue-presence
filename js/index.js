@@ -5,3 +5,4 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./Hue"));
 __export(require("./Configuration"));
+__export(require("./Presenti"));

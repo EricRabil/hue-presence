@@ -1,13 +1,12 @@
-import { v3 } from "node-hue-api";
 import inquirer from "inquirer";
-import { CONFIG, saveConfig } from "./Configuration";
+import { v3 } from "node-hue-api";
 import Api, { Light } from "node-hue-api/lib/api/Api";
-import LightState from "node-hue-api/lib/model/lightstate/LightState";
-import GroupState from "node-hue-api/lib/model/lightstate/GroupState";
-import Lights from "node-hue-api/lib/api/Lights";
 import { LightGroup } from "node-hue-api/lib/api/Groups";
-import { rgbToXY } from "node-hue-api/lib/rgb";
 import { getColorGamut } from "node-hue-api/lib/model/colorGamuts";
+import GroupState from "node-hue-api/lib/model/lightstate/GroupState";
+import LightState from "node-hue-api/lib/model/lightstate/LightState";
+import { rgbToXY } from "node-hue-api/lib/rgb";
+import { CONFIG, saveConfig } from "./Configuration";
 
 interface BridgeStruct {
   name: string;
@@ -120,12 +119,12 @@ export class HueController {
 
     if (this.requiresIndividualConversion) {
       await Promise.all(this.lights.map(async ({ id, colorGamut }) => {
-        const [ x, y ] = rgbToXY([r, g, b], colorGamut);
-        
+        const [x, y] = rgbToXY([r, g, b], colorGamut);
+
         await this.api.lights.setLightState(id, new LightState().xy(x, y).transition(transition));
       }));
     } else {
-      const [ x, y ] = rgbToXY([r,g,b], this.gamut);
+      const [x, y] = rgbToXY([r, g, b], this.gamut);
 
       await this.api.groups.setGroupState(this.group, new GroupState().xy(x, y).transition(transition));
     }

@@ -1,13 +1,13 @@
-import { PresenceStream } from "remote-presence-connector";
-import inquirer from "inquirer";
-import { CONFIG, saveConfig } from "./Configuration";
 import { EventEmitter } from "events";
+import inquirer from "inquirer";
+import { PresenceStream } from "remote-presence-connector";
+import { CONFIG, saveConfig } from "./Configuration";
 
 export declare interface PresentiController {
-  on(event: "background", fn: (color: {color: string, transition: number}) => any): this;
+  on(event: "background", fn: (color: { color: string, transition: number }) => any): this;
   on(event: string | Symbol, fn: (...args: any[]) => any): this;
 
-  emit(event: "background", data: (color: {color: string, transition: number}) => any): boolean;
+  emit(event: "background", data: (color: { color: string, transition: number }) => any): boolean;
   emit(event: string | Symbol, ...args: any[]): boolean;
 }
 
@@ -60,7 +60,7 @@ export class PresentiController extends EventEmitter {
     this.stream.on('state', (state: PresenceState) => {
       if (state.gradient?.color && state.gradient?.transition) {
         // emit state change
-        this.emit("background",  { color: state.gradient.color, transition: state.gradient.transition });
+        this.emit("background", { color: state.gradient.color, transition: state.gradient.transition });
       }
     });
 

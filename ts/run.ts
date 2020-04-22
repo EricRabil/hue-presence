@@ -9,5 +9,5 @@ hueController.initialize().then(() => {
     presentiController.on("background", ({ color, transition }) => {
       hueController.updateToColor(color, transition);
     });
-  })
-})
+  });
+});
