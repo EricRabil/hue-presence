@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const node_hue_api_1 = require("node-hue-api");
 const inquirer_1 = __importDefault(require("inquirer"));
 const Configuration_1 = require("./Configuration");
+const LightState_1 = __importDefault(require("node-hue-api/lib/model/lightstate/LightState"));
 const GroupState_1 = __importDefault(require("node-hue-api/lib/model/lightstate/GroupState"));
 const rgb_1 = require("node-hue-api/lib/rgb");
 const colorGamuts_1 = require("node-hue-api/lib/model/colorGamuts");
@@ -80,6 +81,10 @@ class HueController {
         if (typeof r === "undefined")
             return;
         if (this.requiresIndividualConversion) {
+            await Promise.all(this.lights.map(async ({ id, colorGamut }) => {
+                const [x, y] = rgb_1.rgbToXY([r, g, b], colorGamut);
+                await this.api.lights.setLightState(id, new LightState_1.default().xy(x, y).transition(transition));
+            }));
         }
         else {
             const [x, y] = rgb_1.rgbToXY([r, g, b], this.gamut);

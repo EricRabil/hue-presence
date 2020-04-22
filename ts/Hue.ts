@@ -119,7 +119,11 @@ export class HueController {
     if (typeof r === "undefined") return;
 
     if (this.requiresIndividualConversion) {
-
+      await Promise.all(this.lights.map(async ({ id, colorGamut }) => {
+        const [ x, y ] = rgbToXY([r, g, b], colorGamut);
+        
+        await this.api.lights.setLightState(id, new LightState().xy(x, y).transition(transition));
+      }));
     } else {
       const [ x, y ] = rgbToXY([r,g,b], this.gamut);
 
