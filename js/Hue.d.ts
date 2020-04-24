@@ -29,6 +29,7 @@ interface BridgeStruct {
 export declare class HueController {
     api: Api;
     lights: Light[];
+    rotating: boolean;
     /**
      * Connect to api, do any necessary auth
      */
@@ -38,7 +39,7 @@ export declare class HueController {
      * @param color hex color
      * @param transition transition in milliseconds
      */
-    updateToColor(color: string, transition: number): Promise<void>;
+    updateToColor(color: string, transition: number, force?: boolean): Promise<void>;
     /**
      * Loads light data for the group
      */

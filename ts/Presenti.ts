@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 import inquirer from "inquirer";
 import { PresenceStream } from "remote-presence-connector";
-import { CONFIG, saveConfig } from "./Configuration";
+import { CONFIG, saveConfig, ui } from "./Configuration";
 
 export declare interface PresentiController {
   on(event: "background", fn: (color: { color: string, transition: number }) => any): this;
@@ -15,6 +15,7 @@ interface PresenceState {
   gradient?: {
     color?: string;
     transition?: string;
+    paused?: boolean;
   };
 }
 
@@ -55,20 +56,50 @@ export class PresentiController extends EventEmitter {
       throw new Error("Failed to configure endpoint and scope.");
     }
 
+    var opened: Function;
+
     // connect to presenti api
     this.stream = new PresenceStream(this.scope, { url: this.endpoint });
+
     this.stream.on('state', (state: PresenceState) => {
+      if (state.gradient?.paused) {
+        this.emit("background", { color: this.neutralColor, transition: 2000 })
+        return;
+      }
       if (state.gradient?.color && state.gradient?.transition) {
         // emit state change
         this.emit("background", { color: state.gradient.color, transition: state.gradient.transition });
       }
-    });
+    }).on('state', opened = () => {
+      this.stream.off('state', opened);
+    })
 
     this.stream.connect();
   }
 
+  conncet() {
+    this.stream.connect();
+  }
+
+  disconnect() {
+    this.stream.close();
+  }
+
+  get neutralColor() {
+    return CONFIG.presenti.neutralColor;
+  }
+
+  get connected() {
+    if (!this.stream.socket) return false;
+    return this.stream.socket.readyState === this.stream.socket.OPEN;
+  }
+
   get scope() {
     return CONFIG.presenti.scope;
+  }
+
+  get url() {
+    return this.stream.url;
   }
 
   set scope(scope: string | null) {

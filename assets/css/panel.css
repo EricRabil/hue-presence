@@ -1,0 +1,57 @@
+.color-state, .system-controls {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding: 10px;
+  
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.color-state > .current-color, .color-state > .current-transition {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.color-state > #color-view {
+  width: 200px;
+  height: 50px;
+  transition-property: background-color;
+  background-color: gray;
+
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.panel-root {
+  width: fit-content;
+
+  display: flex;
+  flex-flow: column;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.system-controls {
+  margin-top: 10px;
+}
+
+.system-controls > button {
+  width: 100%;
+}
+
+.system-controls > button:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+body {
+  display: flex;
+  flex-flow: column;
+
+  justify-content: center;
+  align-items: center;
+}

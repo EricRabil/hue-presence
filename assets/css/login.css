@@ -1,0 +1,20 @@
+.form-holder {
+  display: flex;
+  flex-flow: column;
+
+  width: 100vw;
+  height: 100vh;
+
+  justify-content: center;
+  align-items: center;
+}
+
+form.login-form {
+  display: flex;
+  flex-flow: column;
+  width: 200px;
+}
+
+form.login-form > label, form.login-form > input {
+  margin: 10px 0;
+}

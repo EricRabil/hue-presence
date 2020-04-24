@@ -1,0 +1,22 @@
+extends layout.pug
+
+block styles
+  link(rel='stylesheet' href='/css/panel.css')
+
+block content
+  div.panel-root
+    div.color-state
+      span.current-color Current Color:
+        span#color-holder
+      span.current-transition Current Transition:
+        span#transition-holder
+      div#color-view
+    div.system-controls
+      button#toggle-rotation Toggle Color Rotation
+      button#reset-color Reset Lights
+      button#logout Log Out
+
+block scripts
+  script(src="/js/panel.js")
+  script.
+    window.initializePanel('#{url}');

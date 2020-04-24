@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+form > label {
+  display: flex;
+  flex-flow: column;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+form input {
+  padding: 10px;
+  border-radius: 5px;
+  border-style: groove;
+  outline: none;
+}

@@ -22,7 +22,12 @@ export declare class PresentiController extends EventEmitter {
      * Initialize the controller
      */
     initialize(): Promise<void>;
+    conncet(): void;
+    disconnect(): void;
+    get neutralColor(): string | null;
+    get connected(): boolean;
     get scope(): string | null;
+    get url(): string;
     set scope(scope: string | null);
     get endpoint(): string | null;
     set endpoint(endpoint: string | null);

@@ -24,6 +24,7 @@ function hexToRgb(hex) {
 class HueController {
     constructor() {
         this.lights = [];
+        this.rotating = true;
     }
     /**
      * Connect to api, do any necessary auth
@@ -67,16 +68,19 @@ class HueController {
             this.acknowledgedShittyGroup = true;
         }
         await Configuration_1.saveConfig();
+        Configuration_1.ui.log.write('Connected to the Hue API');
     }
     /**
      * Sets all lights in the group to a given hex color, with a transition in milliseconds
      * @param color hex color
      * @param transition transition in milliseconds
      */
-    async updateToColor(color, transition) {
+    async updateToColor(color, transition, force = false) {
         if (!this.group) {
             throw new Error('Missing group');
         }
+        if (!this.rotating && !force)
+            return;
         const { r, g, b } = hexToRgb(color) || {};
         if (typeof r === "undefined")
             return;

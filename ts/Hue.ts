@@ -6,7 +6,7 @@ import { getColorGamut } from "node-hue-api/lib/model/colorGamuts";
 import GroupState from "node-hue-api/lib/model/lightstate/GroupState";
 import LightState from "node-hue-api/lib/model/lightstate/LightState";
 import { rgbToXY } from "node-hue-api/lib/rgb";
-import { CONFIG, saveConfig } from "./Configuration";
+import { CONFIG, saveConfig, ui } from "./Configuration";
 
 interface BridgeStruct {
   name: string;
@@ -48,6 +48,7 @@ function hexToRgb(hex: string) {
 export class HueController {
   api: Api;
   lights: Light[] = [];
+  rotating: boolean = true;
 
   /**
    * Connect to api, do any necessary auth
@@ -101,6 +102,8 @@ export class HueController {
     }
 
     await saveConfig();
+
+    ui.log.write('Connected to the Hue API');
   }
 
   /**
@@ -108,10 +111,12 @@ export class HueController {
    * @param color hex color
    * @param transition transition in milliseconds
    */
-  async updateToColor(color: string, transition: number) {
+  async updateToColor(color: string, transition: number, force: boolean = false) {
     if (!this.group) {
       throw new Error('Missing group');
     }
+
+    if (!this.rotating && !force) return;
 
     const { r, g, b } = hexToRgb(color) || {};
 

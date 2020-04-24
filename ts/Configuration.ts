@@ -1,5 +1,6 @@
 import fs from "fs-extra";
 import path from "path";
+import inquirer from "inquirer";
 
 export interface ConfigurationStruct {
   hue: {
@@ -11,7 +12,14 @@ export interface ConfigurationStruct {
   presenti: {
     endpoint: string | null;
     scope: string | null;
+    neutralColor: string | null;
   };
+  web: {
+    passwordHash: string | null;
+    cookieKey: string | null;
+    enabled: boolean | null;
+    port: number | null;
+  }
 }
 
 const DEFAULT_CONFIG: ConfigurationStruct = {
@@ -23,7 +31,14 @@ const DEFAULT_CONFIG: ConfigurationStruct = {
   },
   presenti: {
     endpoint: null,
-    scope: null
+    scope: null,
+    neutralColor: '#ffffed'
+  },
+  web: {
+    passwordHash: null,
+    cookieKey: null,
+    enabled: null,
+    port: null
   }
 }
 
@@ -32,3 +47,5 @@ export const CONFIG_PATH = path.resolve(__dirname, "..", "hue.config.json");
 export const CONFIG: ConfigurationStruct = fs.pathExistsSync(CONFIG_PATH) ? fs.readJsonSync(CONFIG_PATH) : (fs.writeJsonSync(CONFIG_PATH, DEFAULT_CONFIG, { spaces: 4 }), JSON.parse(JSON.stringify(DEFAULT_CONFIG)));
 
 export const saveConfig = () => fs.writeJson(CONFIG_PATH, CONFIG, { spaces: 4 });
+
+export const ui = new inquirer.ui.BottomBar();
