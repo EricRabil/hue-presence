@@ -31,7 +31,7 @@
     "inquirer": "^7.1.0",
     "morgan": "^1.10.0",
     "node-hue-api": "^4.0.5",
-    "pug": "^2.0.4",
+    "pug": "^3.0.3",
     "remote-presence-connector": "github:EricRabil/remote-presence-connector"
   },
   "devDependencies": {
